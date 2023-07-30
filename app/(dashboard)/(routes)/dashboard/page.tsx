@@ -1,12 +1,10 @@
-import { UserProfile } from "@clerk/nextjs"
 
-const page = () => {
+const DashboardPage = () => {
   return (
     <div>
-      <h2>Dashboard (Protected)</h2>
-      <UserProfile  />
+      <p>User currently in dashboard (Protected)</p>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default DashboardPage;
