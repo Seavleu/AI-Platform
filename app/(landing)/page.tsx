@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { UserProfile, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 
 const page = () => {
   return (
@@ -18,7 +18,7 @@ const page = () => {
           </Link>
         </div>
       </div>
-      <UserButton afterSignOutUrl="/" />
+      {/* <UserButton afterSignOutUrl="/" /> */}
       
     </div>
   );
