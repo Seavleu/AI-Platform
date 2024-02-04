@@ -14,17 +14,11 @@ import { ChatCompletionRequestMessage } from "openai";
 import { Heading } from "@/components/Heading";
 import Empty from "@/components/ui/empty";
 import { Loader } from "@/components/Loader";
-import { UserAvatar } from "@/components/user-avatars";
-import { BotAvatar } from "@/components/bot-avatar";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { cn } from "@/lib/utils";
-// import { UserAvatar } from "@/components/user-avatar";
-// import { Empty } from "@/components/ui/empty";
-// import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "./constants";
 
@@ -32,7 +26,7 @@ import { formSchema } from "./constants";
 const MusicPage = () => {
   const router = useRouter();
   // const proModal = useProModal();
-  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const [music, setMusic] = useState<string>();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,12 +39,11 @@ const MusicPage = () => {
   
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionRequestMessage = { role: "user", content: values.prompt };
-      const newMessages = [...messages, userMessage];
+      setMusic(undefined)
+
+      const response = await axios.post('/api/music', values);
       
-      const response = await axios.post('/api/code', { messages: newMessages });
-      setMessages((current) => [...current, userMessage, response.data]);
-      
+      setMusic(response.data.audio);
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
@@ -66,8 +59,8 @@ const MusicPage = () => {
   return ( 
     <div>
       <Heading
-        title="Code Generation"
-        description="Generate code using descriptive text."
+        title="Music Generation"
+        description="Turn your prompt into music."
         icon={Music3}
         iconColor="text-cyan-700"
         bgColor="bg-cyan-700/10"
@@ -98,7 +91,7 @@ const MusicPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
-                        placeholder="Simple toggle button using react hooks." 
+                        placeholder="R&B tune with theme of 90s." 
                         {...field}
                       />
                     </FormControl>
@@ -117,34 +110,14 @@ const MusicPage = () => {
               <Loader />
             </div>
           )}
-          {messages.length === 0 && !isLoading && (
-            <Empty label="No conversation started." />
+          {!music && !isLoading && (
+            <Empty label="No music generated." />
           )}
-          <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((message) => (
-              <div 
-                key={message.content} 
-                className={cn(
-                  "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                  message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
-                )}
-              >
-                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <ReactMarkdown components={{
-                  pre: ({ node, ...props }) => (
-                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
-                      <pre {...props} />
-                    </div>
-                  ),
-                  code: ({ node, ...props }) => (
-                    <code className="bg-black/10 rounded-lg p-1" {...props} />
-                  )
-                }} className="text-sm overflow-hidden leading-7">
-                  {message.content || ""}
-                </ReactMarkdown>
-              </div>
-            ))}
-          </div>
+          {music && (
+            <audio controls className="w-full mt-8">
+              <source src={music}/>
+            </audio>
+          )}          
         </div>
       </div>
     </div>
