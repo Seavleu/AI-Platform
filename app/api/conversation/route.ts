@@ -1,14 +1,10 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 
-
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-    engine: "davinci"
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
   });
-  
-  const openai = new OpenAIApi(configuration);
   
 
 export async function POST(req: Request) {
@@ -47,16 +43,14 @@ export async function POST(req: Request) {
             });
         }
 
-        const response = await openai.createChatCompletion({
+// Creating a chat completion
+        const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
-            messages
+            messages: [{"role": "user", "content": "Hello!"}],
         });
 
-        return new NextResponse(JSON.stringify(response.data.choice[0].messages), {
+        return new NextResponse(JSON.stringify(response.choices[0].message), {
             status: 200,
-            headers: {
-                "Content-Type": "application/json",
-            },
         });
     }
     catch (error) {

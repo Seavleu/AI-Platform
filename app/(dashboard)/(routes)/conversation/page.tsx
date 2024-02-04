@@ -27,35 +27,37 @@ import { formSchema } from "./constants";
 
 const Conversation = () => {
   const router = useRouter();
-  const [message, setmessage] = useState<ChatCompletionRequestMessage[]>([]);
+  const [message, setMessage] = useState<ChatCompletionRequestMessage[]>([]);
       // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       prompt: "",
     },
-  })
-    // 2. Define a submit handler.    
+  })   
       //Loading state
       const isLoading = form.formState.isSubmitting;
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        const onSubmit = async (values: z.infer<typeof formSchema>) => {
-          try {
-            const userMessage: ChatCompletionRequestMessage = {
-              role: "user",
-              content: values.prompt
-            };
-            const newMessage = [...message, userMessage];
-            const response = await axios.post('/api/conversation', { message: newMessage });
-            setMessage([...newMessage, response.data]);
-          } catch (error) {
-            console.error(error);
-            // Handle error here, e.g., display an error message to the user
-          } finally {
-            router.reload();
+
+      // 2. Define a submit handler. 
+      const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+          const userMessage: ChatCompletionRequestMessage = { role: "user", content: values.prompt };
+          const newMessages = [...message, userMessage];
+          
+          const response = await axios.post('/api/conversation', { messages: newMessages });
+          setMessage((current) => [...current, userMessage, response.data]);
+          
+          form.reset();
+        } catch (error: any) {
+          if (error?.response?.status === 403) {
+            // proModal.onOpen();
+          } else {
+            // toast.error("Something went wrong.");
           }
-        };
+        } finally {
+          router.refresh();
+        }
+      }
     
 
     return (
@@ -81,7 +83,7 @@ const Conversation = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
-                        placeholder="How do I calculate the radius of a circle?" 
+                        placeholder="How to write a good presenation?" 
                         {...field}
                       />
                     </FormControl>
