@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { Code } from "lucide-react";
+import { Settings } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -12,10 +12,10 @@ import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
 
 import { Heading } from "@/components/Heading";
-import  Empty  from "@/components/Empty";
-import Loader from "@/components/Loader";
-import UserAvatar from "@/components/user-avatars";
-import BotAvatar from "@/components/bot-avatar";
+import Empty from "@/components/ui/empty";
+import { Loader } from "@/components/Loader";
+import { UserAvatar } from "@/components/user-avatars";
+import { BotAvatar } from "@/components/bot-avatar";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -68,9 +68,9 @@ const SettingsPage = () => {
       <Heading
         title="Code Generation"
         description="Generate code using descriptive text."
-        icon={Code}
-        iconColor="text-green-700"
-        bgColor="bg-green-700/10"
+        icon={Settings}
+        iconColor="text-white-700"
+        bgColor="bg-white-700/10"
       />
       <div className="px-4 lg:px-8">
         <div>

@@ -10,10 +10,10 @@ import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
 
 import { Heading } from "@/components/Heading";
-import  Empty  from "@/components/Empty";
-import Loader from "@/components/Loader";
-import UserAvatar from "@/components/user-avatars";
-import BotAvatar from "@/components/bot-avatar";
+import Empty from "@/components/ui/empty";
+import { Loader } from "@/components/Loader";
+import { UserAvatar } from "@/components/user-avatars";
+import { BotAvatar } from "@/components/bot-avatar";
 
 // import { Empty, Loader, UserAvatar, BotAvatar, } from "@/components";
 import { Button } from "@/components/ui/button";
@@ -21,8 +21,6 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
-// import { UserAvatar } from "@/components/user-avatar";
-// import { Empty } from "@/components/ui/empty";
 // import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "./constants";
@@ -49,7 +47,7 @@ const ConversationPage = () => {
       
       const response = await axios.post('/api/conversation', { messages: newMessages });
       setMessages((current) => [...current, userMessage, response.data]);
-      
+      // console.log(values)
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
@@ -61,6 +59,7 @@ const ConversationPage = () => {
       router.refresh();
     }
   }
+  
 
   return ( 
     <div>
@@ -140,5 +139,6 @@ const ConversationPage = () => {
     </div>
    );
 }
-
+ 
 export default ConversationPage;
+

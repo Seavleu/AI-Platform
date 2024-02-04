@@ -12,18 +12,16 @@ import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
 
 import { Heading } from "@/components/Heading";
-import  Empty  from "@/components/Empty";
-import Loader from "@/components/Loader";
-import UserAvatar from "@/components/user-avatars";
-import BotAvatar from "@/components/bot-avatar";
+import Empty from "@/components/ui/empty";
+import { Loader } from "@/components/Loader";
+import { UserAvatar } from "@/components/user-avatars";
+import { BotAvatar } from "@/components/bot-avatar";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
-// import { UserAvatar } from "@/components/user-avatar";
-// import { Empty } from "@/components/ui/empty";
 // import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "./constants";
@@ -152,3 +150,4 @@ const CodePage = () => {
 }
  
 export default CodePage;
+
