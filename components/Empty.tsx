@@ -11,7 +11,7 @@ const Empty = ({label}: EmptyProps) => {
             <Image
             alt="Empty"
             fill
-            src="/"/>
+            src="/empty.png"/>
         </div>
         <p className="text-muted-foreground text-sm text-center"></p>
     </div>

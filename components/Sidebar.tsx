@@ -71,7 +71,7 @@ const Sidebar = () => {
               Replace the `src` prop with the actual URL or path to your logo image.
             */}
             <Image
-              src="/"
+              src="/logo.png"
               alt=""
               width={32} // Provide the width of the image in pixels
               height={32} // Provide the height of the image in pixels
