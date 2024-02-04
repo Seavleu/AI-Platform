@@ -1,10 +1,16 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
+import { Configuration, OpenAIApi } from "openai";
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
-  });
+// import OpenAI from "openai";
+// const openai = new OpenAI({
+//     apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+//   });
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
   
 
 export async function POST(req: Request) {
@@ -19,20 +25,12 @@ export async function POST(req: Request) {
         if (!userId) {
             return new NextResponse("Unauthorized", {
                 status: 401,
-                headers: {
-                    "Content-Type": "application/json",
-                },
             });
         }
 
-        if (!openai.apiKey) {
-            return new NextResponse("OpenAI API KEY is not configured", {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-        }
+        if (!configuration.apiKey) {
+            return new NextResponse("OpenAI API Key not configured.", { status: 500 });
+          }
 
         if (!messages) {
             return new NextResponse("No messages provided", {
@@ -44,12 +42,12 @@ export async function POST(req: Request) {
         }
 
 // Creating a chat completion
-        const response = await openai.chat.completions.create({
+        const response = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            messages: [{"role": "user", "content": "Hello!"}],
+            messages
         });
 
-        return new NextResponse(JSON.stringify(response.choices[0].message), {
+        return new NextResponse(JSON.stringify(response.data.choices[0].message), {
             status: 200,
         });
     }
