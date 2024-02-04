@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 // import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import ChatCompletionRequestMessage from "openai";
+import ChatCompletionRequestMessage  from "openai";
 
 // import { BotAvatar } from "@/components/bot-avatar";
 import { Heading } from "@/components/Heading";
@@ -35,30 +35,42 @@ const Conversation = () => {
       prompt: "",
     },
   })   
-      //Loading state
+      // Loading state
       const isLoading = form.formState.isSubmitting;
 
       // 2. Define a submit handler. 
       const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-          const userMessage: ChatCompletionRequestMessage = { role: "user", content: values.prompt };
+          // Create the user message object
+          const userMessage = {
+            role: "user",
+            content: values.prompt,
+          };
+      
+          // Update state with the new message
           const newMessages = [...message, userMessage];
-          
+      
+          // Send the new message to the server
           const response = await axios.post('/api/conversation', { messages: newMessages });
+      
+          // Update state with the response
           setMessage((current) => [...current, userMessage, response.data]);
-          
+      
+          // Reset the form after successful submission
           form.reset();
         } catch (error: any) {
+          // Handle errors
           if (error?.response?.status === 403) {
-            // proModal.onOpen();
+            // Handle 403 status
           } else {
-            // toast.error("Something went wrong.");
+            // Handle other errors
           }
         } finally {
+          // Refresh the router after submission (optional)
           router.refresh();
         }
-      }
-    
+      };
+      
 
     return (
         <div>
