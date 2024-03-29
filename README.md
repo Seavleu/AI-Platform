@@ -1,5 +1,6 @@
 # AI SaaS Platform
 ![Untitled](https://github.com/Seavleu/AI-Platform/assets/86590058/596ad6d5-59b4-4b13-967d-2d08bf11a639)
+![Untitled](https://github.com/Seavleu/AI-Platform/assets/86590058/384a6b7e-9d82-4b90-b8c1-c27c43299884)
 
 ## Introduction
 
