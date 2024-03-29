@@ -11,6 +11,7 @@ Welcome to the AI SaaS Platform! This platform provides various AI-powered tools
 - Check out the live demo of the AI SaaS Platform [here](https://anyai-saas-platform.vercel.app/).
 - Check out document in [here](https://vast-part-d09.notion.site/AI-SaaS-Platform-86b9a7b7d8d545fbb289c15b5507dbb6).
 - Check out raw demo video in [here](https://www.youtube.com/watch?v=7JAqUhTARwM&t=37s).
+- Sample of Interface & Testing are [here](https://vast-part-d09.notion.site/AI-SaaS-Platform-86b9a7b7d8d545fbb289c15b5507dbb6#ed6c8b4fb380450380901c50c8bf0909)
 
 ## About
 
