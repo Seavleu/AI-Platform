@@ -1,4 +1,5 @@
 # AI SaaS Platform
+![Untitled](https://github.com/Seavleu/AI-Platform/assets/86590058/596ad6d5-59b4-4b13-967d-2d08bf11a639)
 
 ## Introduction
 
@@ -7,8 +8,8 @@ Welcome to the AI SaaS Platform! This platform provides various AI-powered tools
 ## Document
 
 - Check out the live demo of the AI SaaS Platform [here](https://anyai-saas-platform.vercel.app/).
-- Check out document in [here]([https://anyai-saas-platform.vercel.app/](https://vast-part-d09.notion.site/AI-SaaS-Platform-86b9a7b7d8d545fbb289c15b5507dbb6)).
-- Check out raw demo video in [here]([https://anyai-saas-platform.vercel.app/](https://www.youtube.com/watch?v=7JAqUhTARwM&t=37s)).
+- Check out document in [here]([https://anyai-saas-platform.vercel.app/](https://vast-part-d09.notion.site/AI-SaaS-Platform-86b9a7b7d8d545fbb289c15b5507dbb6).
+- Check out raw demo video in [here]([https://anyai-saas-platform.vercel.app/](https://www.youtube.com/watch?v=7JAqUhTARwM&t=37s).
 
 ## About
 
